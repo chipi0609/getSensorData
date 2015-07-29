@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="430dp"
+    android:layout_height="180dp" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/welcome"
+    tools:context=".Welcome">
+
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:text="click to START!"
+        android:id="@+id/start"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold|italic"
+        android:textSize="20dp"
+        android:background="#fff"
+        android:onClick="sendMessage"
+        android:typeface="sans" />
+</RelativeLayout>
