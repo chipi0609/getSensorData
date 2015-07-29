@@ -19,7 +19,7 @@ import org.w3c.dom.Text;
 public class MainActivity extends ActionBarActivity {
 
     private Spinner spinner;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +40,13 @@ public class MainActivity extends ActionBarActivity {
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 ((TextView) parent.getChildAt(0)).setTextSize(25);
                 ((TextView) parent.getChildAt(0)).setTypeface(null, Typeface.BOLD);
 
-                Toast.makeText(parent.getContext(),"Getting Data of " + parent.getItemAtPosition(pos).toString(),Toast.LENGTH_LONG).show();
+                String sensor = parent.getItemAtPosition(pos).toString();
+
+                //Toast.makeText(parent.getContext(), "Getting Data of " + sensor, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -52,6 +54,18 @@ public class MainActivity extends ActionBarActivity {
 
             }
         });
+
+        String sensor = spinner.getSelectedItem().toString();
+        Intent intentS = null;
+        switch(sensor) {
+            case "Accelerometer" : intentS = new Intent(this,Accelerometer.class);
+                break;
+            case "Gyroscope" : intentS = new Intent(this,Gyroscope.class);
+                break;
+            case "Magnetometer" : intentS = new Intent(this,Magnetometer.class);
+                break;
+        }
+        startActivity(intentS);
 
     }
 

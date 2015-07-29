@@ -24,6 +24,14 @@
             android:name=".Accelerometer"
             android:label="@string/title_activity_accelerometer" >
         </activity>
+        <activity
+            android:name=".Gyroscope"
+            android:label="@string/title_activity_gyroscope" >
+        </activity>
+        <activity
+            android:name=".Magnetometer"
+            android:label="@string/title_activity_magnetometer" >
+        </activity>
     </application>
 
 </manifest>

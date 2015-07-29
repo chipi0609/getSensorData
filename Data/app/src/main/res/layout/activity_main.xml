@@ -15,17 +15,37 @@
         android:textStyle="bold"
         android:textColor="#ff000000" />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
     <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
         android:id="@+id/spinner"
         android:entries="@array/spinner_sensors"
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="false"
         android:background="#fff"
-        android:layout_gravity="center"
         android:layout_centerInParent="true"
         android:dropDownSelector="@color/abc_background_cache_hint_selector_material_dark"
-        android:focusable="true" />
+        android:focusable="true"
+        android:layout_marginRight="10dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:background="@drawable/ok"
+        android:layout_weight="0.08" />
+</LinearLayout>
 
 </RelativeLayout>

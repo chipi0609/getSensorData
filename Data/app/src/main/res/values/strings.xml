@@ -11,4 +11,6 @@
         <item>Magnetometer</item>
     </string-array>
     <string name="title_activity_accelerometer">Accelerometer</string>
+    <string name="title_activity_gyroscope">Gyroscope</string>
+    <string name="title_activity_magnetometer">Magnetometer</string>
 </resources>
