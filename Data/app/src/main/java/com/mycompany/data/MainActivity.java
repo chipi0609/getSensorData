@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
 
                 String sensor = parent.getItemAtPosition(pos).toString();
 
-                //Toast.makeText(parent.getContext(), "Getting Data of " + sensor, Toast.LENGTH_LONG).show();
+                Toast.makeText(parent.getContext(), "Getting Data of " + sensor + " Swipe to press 'Go' button or click to select another one", Toast.LENGTH_LONG).show();
             }
 
             @Override
