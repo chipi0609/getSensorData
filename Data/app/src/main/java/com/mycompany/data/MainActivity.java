@@ -55,6 +55,11 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+
+
+    }
+
+    public void sendMessage(View view) {
         String sensor = spinner.getSelectedItem().toString();
         Intent intentS = null;
         switch(sensor) {
@@ -66,7 +71,6 @@ public class MainActivity extends ActionBarActivity {
                 break;
         }
         startActivity(intentS);
-
     }
 
     @Override

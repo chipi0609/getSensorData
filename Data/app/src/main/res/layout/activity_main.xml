@@ -45,6 +45,7 @@
         android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView"
         android:background="@drawable/ok"
+        android:onClick="sendMessage"
         android:layout_weight="0.08" />
 </LinearLayout>
 
