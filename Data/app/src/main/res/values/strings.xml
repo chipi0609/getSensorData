@@ -4,6 +4,7 @@
     <string name="hello_world">Choose from below:</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">Get Sensor Data!</string>
+    <string name="current">Current Acceleration:</string>
 
     <string-array name="spinner_sensors">
         <item>Accelerometer</item>
