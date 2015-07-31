@@ -6,6 +6,7 @@
     <string name="title_activity_main">Get Sensor Data!</string>
     <string name="current">Current Acceleration:</string>
     <string name="mag">Current Magnetic Field Force:</string>
+    <string name="gyr">Current Rate of Rotation:</string>
 
     <string-array name="spinner_sensors">
         <item>Accelerometer</item>
