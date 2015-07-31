@@ -1,38 +1,74 @@
 package com.mycompany.data;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
-public class Magnetometer extends ActionBarActivity {
+public class Magnetometer extends ActionBarActivity implements SensorEventListener{
+
+    private float x,y,z;
+    private float dx = 0,dy = 0,dz = 0;
+    private Long currentMillis;
+
+    private SensorManager sensorManager;
+    private Sensor magnetometer;
+
+    private TextView currentX,currentY,currentZ,currentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_magnetometer);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_magnetometer, menu);
-        return true;
-    }
+        currentX = (TextView) findViewById(R.id.currentX);
+        currentY = (TextView) findViewById(R.id.currentY);
+        currentZ = (TextView) findViewById(R.id.currentZ);
+        currentTime = (TextView) findViewById(R.id.currentTime);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) !=null ){
+            magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            sensorManager.registerListener(this,magnetometer,SensorManager.SENSOR_DELAY_NORMAL);
         }
 
-        return super.onOptionsItemSelected(item);
+        currentMillis = System.currentTimeMillis();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        Long timeNow = (System.currentTimeMillis()-currentMillis)/1000;
+
+        currentX.setText(Float.toString(dx));
+        currentY.setText(Float.toString(dy));
+        currentZ.setText(Float.toString(dz));
+        currentTime.setText(Long.toString(timeNow));
+
+        dx = Math.abs(x - event.values[0]);
+        dy = Math.abs(y - event.values[1]);
+        dz = Math.abs(z - event.values[2]);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
