@@ -55,16 +55,16 @@ public class Magnetometer extends ActionBarActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        Long timeNow = (System.currentTimeMillis()-currentMillis)/1000;
+        float timeNow = (System.currentTimeMillis()-currentMillis)/100;
 
         currentX.setText(Float.toString(dx));
         currentY.setText(Float.toString(dy));
         currentZ.setText(Float.toString(dz));
-        currentTime.setText(Long.toString(timeNow));
+        currentTime.setText(Float.toString(timeNow));
 
-        dx = Math.abs(x - event.values[0]);
-        dy = Math.abs(y - event.values[1]);
-        dz = Math.abs(z - event.values[2]);
+        dx = event.values[0];
+        dy = event.values[1];
+        dz = event.values[2];
     }
 
     @Override
