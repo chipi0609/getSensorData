@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Data</string>
+
+    <string name="hello_world">Choose from below:</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">Get Sensor Data!</string>
+    <string name="current">Current Acceleration:</string>
+    <string name="mag">Current Magnetic Field Force:</string>
+    <string name="gyr">Current Rate of Rotation:</string>
+
+    <string-array name="spinner_sensors">
+        <item>Accelerometer</item>
+        <item>Gyroscope</item>
+        <item>Magnetometer</item>
+    </string-array>
+    <string name="title_activity_accelerometer">Accelerometer</string>
+    <string name="title_activity_gyroscope">Gyroscope</string>
+    <string name="title_activity_magnetometer">Magnetometer</string>
+</resources>
