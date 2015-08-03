@@ -22,7 +22,7 @@ public class Accelerometer extends ActionBarActivity implements SensorEventListe
 
     private TextView currentX,currentY,currentZ,currentTime;
 
-
+    private boolean isPlaying = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +43,20 @@ public class Accelerometer extends ActionBarActivity implements SensorEventListe
         currentMillis = System.currentTimeMillis();
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        if(!isPlaying) {
+            MusicManager.start(this);
+        }
     }
 
+    @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+        isPlaying = true;
     }
 
     @Override

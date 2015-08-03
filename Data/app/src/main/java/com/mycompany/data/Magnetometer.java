@@ -23,6 +23,7 @@ public class Magnetometer extends ActionBarActivity implements SensorEventListen
 
     private TextView currentX,currentY,currentZ,currentTime;
 
+    private boolean isPlaying = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +44,20 @@ public class Magnetometer extends ActionBarActivity implements SensorEventListen
         currentMillis = System.currentTimeMillis();
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        if(!isPlaying) {
+            MusicManager.start(this);
+        }
     }
 
+    @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+        isPlaying = true;
     }
 
     @Override
@@ -71,4 +78,5 @@ public class Magnetometer extends ActionBarActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
 }

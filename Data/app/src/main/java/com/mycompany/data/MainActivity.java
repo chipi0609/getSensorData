@@ -2,6 +2,7 @@ package com.mycompany.data;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import org.w3c.dom.Text;
 public class MainActivity extends ActionBarActivity {
 
     private Spinner spinner;
+    private boolean isPlaying = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,17 +76,18 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    protected void onPause() {
+        super.onPause();
+        isPlaying = true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isPlaying) {
+            MusicManager.start(this);
+        }
+    }
+
+
 }

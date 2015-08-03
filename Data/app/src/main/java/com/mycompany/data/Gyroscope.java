@@ -21,6 +21,8 @@ public class Gyroscope extends ActionBarActivity implements SensorEventListener{
     private Sensor gyroscope;
 
     private TextView currentX,currentY,currentZ,currentTime;
+
+    private boolean isPlaying = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +44,20 @@ public class Gyroscope extends ActionBarActivity implements SensorEventListener{
 
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+        if(!isPlaying) {
+            MusicManager.start(this);
+        }
     }
 
+    @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+        isPlaying = true;
     }
 
     @Override
