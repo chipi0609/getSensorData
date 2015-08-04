@@ -1,9 +1,11 @@
 package com.mycompany.data;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,9 +15,18 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-public class AllSensors extends ActionBarActivity{
+public class AllSensors extends ActionBarActivity implements SensorEventListener{
 
+
+    Long startTime;
     Button start,stop,save;
+
+    private SensorManager sensorManager;
+
+    private Sensor accelerometer;
+    private Sensor gyroscope;
+    private Sensor magnetometer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +48,29 @@ public class AllSensors extends ActionBarActivity{
         save.setTypeface(scribble);
         save.setTextSize(80);
 
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        // register all the sensors
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) !=null ){
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sensorManager.registerListener(this,accelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) !=null ){
+            gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+            sensorManager.registerListener(this,gyroscope,SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) !=null ){
+            magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+            sensorManager.registerListener(this,magnetometer,SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
 
     }
 
     public void start(View view) {
-
+        startTime = System.currentTimeMillis();
     }
 
     public void stop(View view) {
@@ -53,13 +82,14 @@ public class AllSensors extends ActionBarActivity{
     }
 
 
-//    @Override
-//    public void onSensorChanged(SensorEvent event) {
-//
-//    }
-//
-//    @Override
-//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//    }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        Sensor sensor = event.sensor;
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }
