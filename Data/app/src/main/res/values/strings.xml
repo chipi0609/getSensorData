@@ -12,8 +12,10 @@
         <item>Accelerometer</item>
         <item>Gyroscope</item>
         <item>Magnetometer</item>
+        <item>All Sensors</item>
     </string-array>
     <string name="title_activity_accelerometer">Accelerometer</string>
     <string name="title_activity_gyroscope">Gyroscope</string>
     <string name="title_activity_magnetometer">Magnetometer</string>
+    <string name="title_activity_all_sensors">All Sensors</string>
 </resources>

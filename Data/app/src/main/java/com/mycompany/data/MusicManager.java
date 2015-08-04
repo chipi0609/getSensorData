@@ -16,7 +16,7 @@ public class MusicManager {
 
         if(mediaPlayer != null){
             if(!mediaPlayer.isPlaying()){
-                mediaPlayer.start();
+                //mediaPlayer.start();
             }
             mediaPlayer.setLooping(true);
         }

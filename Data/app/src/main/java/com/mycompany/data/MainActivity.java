@@ -71,6 +71,7 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case "Magnetometer" : intentS = new Intent(this,Magnetometer.class);
                 break;
+            case "All Sensors" : intentS = new Intent(this,AllSensors.class);
         }
         startActivity(intentS);
     }

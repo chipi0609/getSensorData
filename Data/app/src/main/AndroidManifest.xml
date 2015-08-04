@@ -32,6 +32,10 @@
             android:name=".Magnetometer"
             android:label="@string/title_activity_magnetometer" >
         </activity>
+        <activity
+            android:name=".AllSensors"
+            android:label="@string/title_activity_all_sensors" >
+        </activity>
     </application>
 
 </manifest>
