@@ -64,14 +64,15 @@ public class Gyroscope extends ActionBarActivity implements SensorEventListener{
     public void onSensorChanged(SensorEvent event) {
         double timeNow = (System.currentTimeMillis()-currentMillis)/100;
 
+        dx = event.values[0];
+        dy = event.values[1];
+        dz = event.values[2];
+
         currentX.setText(Float.toString(dx));
         currentY.setText(Float.toString(dy));
         currentZ.setText(Float.toString(dz));
         currentTime.setText(Double.toString(timeNow));
 
-        dx = event.values[0];
-        dy = event.values[1];
-        dz = event.values[2];
     }
 
     @Override

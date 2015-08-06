@@ -63,14 +63,15 @@ public class Accelerometer extends ActionBarActivity implements SensorEventListe
     public void onSensorChanged(SensorEvent event) {
         float timeNow = (System.currentTimeMillis()-currentMillis)/100;
 
+        dx = event.values[0];
+        dy = event.values[1];
+        dz = event.values[2];
+
         currentX.setText(Float.toString(dx));
         currentY.setText(Float.toString(dy));
         currentZ.setText(Float.toString(dz));
         currentTime.setText(Float.toString(timeNow));
 
-        dx = event.values[0];
-        dy = event.values[1];
-        dz = event.values[2];
 
     }
 
