@@ -42,5 +42,5 @@
         android:layout_alignStart="@+id/stop"
         android:background="@drawable/save_button"
         android:textColor="@drawable/text"
-        android:onClick="saveData"/>
+        android:onClick="saveData" />
 </RelativeLayout>

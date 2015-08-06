@@ -19,6 +19,7 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
 
 
     Long startTime;
+    private float ax,ay,az,gx,gy,gz,mx,my,mz;
     Button start,stop,save;
 
     private SensorManager sensorManager;
