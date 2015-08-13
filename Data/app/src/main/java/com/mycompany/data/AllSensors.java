@@ -34,7 +34,9 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
     private Sensor gyroscope;
     private Sensor magnetometer;
 
-    String content = "\n" + "0                " + ax + "     " + ay + "     " + az + "     " + mx + "     " + my + "     " + mz + "     " + gx + "     " + gy + "     " + gz + "\n";
+    String contentA = "Timestamp        x     y     z    " + "\n";
+    String contentG = "Timestamp        x     y     z    " + "\n";
+    String contentM = "Timestamp        x     y     z    " + "\n";
 
 
     @Override
@@ -80,31 +82,44 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
 
     public void start(View view) {
         startTime = System.currentTimeMillis();
+        Toast.makeText(AllSensors.this, "You have starter!", Toast.LENGTH_SHORT).show();
     }
 
     public void stop(View view) {
         endTime = System.currentTimeMillis();
+        Toast.makeText(AllSensors.this, "You have stopped!", Toast.LENGTH_SHORT).show();
     }
 
     // saves all the data collected
     public void saveData(View view) {
-        String filename = parse() + ".txt";
-        File file;
+        String filenameA = parse() + "_Acc.txt";
+        String filenameG = parse() + "_Gyr.txt";
+        String filenameM = parse() + "_Mag.txt";
+        File fileA,fileG,fileM;
 
-        FileOutputStream fileOutputStream;
-
-        String title = "Timestamp        Ax     Ay     Az     Mx     My     Mz     Gx     Gy     Gz   " + "\n";
+        FileOutputStream fileOutputStreamA;
+        FileOutputStream fileOutputStreamG;
+        FileOutputStream fileOutputStreamM;
 
         try {
-            file = new File(Environment.getExternalStorageDirectory(), filename);
+            fileA = new File(Environment.getExternalStorageDirectory(), filenameA);
+            fileG = new File(Environment.getExternalStorageDirectory(), filenameG);
+            fileM = new File(Environment.getExternalStorageDirectory(), filenameM);
 
-            fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(title.getBytes());
-            fileOutputStream.write(content.getBytes());
-            fileOutputStream.close();
+
+            fileOutputStreamA = new FileOutputStream(fileA);
+            fileOutputStreamG = new FileOutputStream(fileG);
+            fileOutputStreamM = new FileOutputStream(fileM);
+
+            fileOutputStreamA.write(contentA.getBytes());
+            fileOutputStreamG.write(contentG.getBytes());
+            fileOutputStreamM.write(contentM.getBytes());
+
+            fileOutputStreamA.close();
+            fileOutputStreamG.close();
+            fileOutputStreamM.close();
 
         } catch (IOException e) {
-            Log.e("TAG", Log.getStackTraceString(e));
             Toast.makeText(AllSensors.this, "An error occurred!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -115,7 +130,7 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
 
 
     // this method would return a string of formatted date and time
-    private String parse() {
+    public static String parse() {
         String result = "";
 
         Date date = new Date();
@@ -144,19 +159,20 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
                 ax = event.values[0];
                 ay = event.values[1];
                 az = event.values[2];
+                contentA += (currentTime-startTime) + ax + " " + ay + " " + az;
 
             } else if (sensor.getType() == Sensor.TYPE_GYROSCOPE) {
                 gx = event.values[0];
                 gy = event.values[1];
                 gz = event.values[2];
+                contentG += (currentTime-startTime) + gx + " " + gy + " " + gz;
+
             } else if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
                 mx = event.values[0];
                 my = event.values[1];
                 mz = event.values[2];
+                contentM += (currentTime-startTime) + mx + " " + my + " " + mz;
             }
-
-
-            content += (currentTime - startTime) + ax + " " + ay + " " + az + " " + mx + " " + my + " " + mz + " " + gx + " " + gy + " " + gz + "\n";
         }
 
     }
