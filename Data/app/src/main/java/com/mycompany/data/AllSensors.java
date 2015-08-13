@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.util.Date;
 
 
-public class AllSensors extends ActionBarActivity implements SensorEventListener{
+public class AllSensors extends ActionBarActivity implements SensorEventListener {
 
 
-    private long startTime,endTime,currentTime;
+    private long startTime, endTime, currentTime;
 
-    private float ax,ay,az,gx,gy,gz,mx,my,mz;
-    Button start,stop,save;
+    private float ax = 0, ay = 0, az = 0, gx = 0, gy = 0, gz = 0, mx = 0, my = 0, mz = 0;
+    Button start, stop, save;
 
     private SensorManager sensorManager;
 
@@ -34,7 +34,7 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
     private Sensor gyroscope;
     private Sensor magnetometer;
 
-    String content = "";
+    String content = "\n" + "0                " + ax + "     " + ay + "     " + az + "     " + mx + "     " + my + "     " + mz + "     " + gx + "     " + gy + "     " + gz + "\n";
 
 
     @Override
@@ -60,19 +60,19 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         // register all the sensors
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) !=null ){
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            sensorManager.registerListener(this,accelerometer,SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) !=null ){
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE) != null) {
             gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-            sensorManager.registerListener(this,gyroscope,SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) !=null ){
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null) {
             magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-            sensorManager.registerListener(this,magnetometer,SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
 
@@ -93,24 +93,24 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
 
         FileOutputStream fileOutputStream;
 
-        String title = "Timestamp        Ax     Ay     Az     Mx     My     Mz     Gx     Gy     Gz   ";
+        String title = "Timestamp        Ax     Ay     Az     Mx     My     Mz     Gx     Gy     Gz   " + "\n";
 
-        try{
-            file = new File(Environment.getExternalStorageDirectory(),filename);
+        try {
+            file = new File(Environment.getExternalStorageDirectory(), filename);
 
             fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(title.getBytes());
             fileOutputStream.write(content.getBytes());
             fileOutputStream.close();
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             Log.e("TAG", Log.getStackTraceString(e));
-            Toast.makeText(AllSensors.this,"An error occurred!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(AllSensors.this, "An error occurred!", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-        Toast.makeText(AllSensors.this,"You have saved the sensors data!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(AllSensors.this, "You have saved the sensors data!", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -138,7 +138,8 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
         Sensor sensor = event.sensor;
 
         currentTime = System.currentTimeMillis();
-        if(currentTime >= startTime && currentTime <= endTime) {
+
+        if (currentTime >= startTime && currentTime <= endTime) {
             if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 ax = event.values[0];
                 ay = event.values[1];
@@ -154,7 +155,8 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
                 mz = event.values[2];
             }
 
-            content += (currentTime - startTime) + ax + " " + ay + " " + az + " " + mx + " " + my + " " + mz + " " + gx + " " + gy + " " + gz + "/n";
+
+            content += (currentTime - startTime) + ax + " " + ay + " " + az + " " + mx + " " + my + " " + mz + " " + gx + " " + gy + " " + gz + "\n";
         }
 
     }
@@ -162,5 +164,20 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
     }
 }
