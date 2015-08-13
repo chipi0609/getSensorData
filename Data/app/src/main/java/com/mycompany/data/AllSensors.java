@@ -9,8 +9,7 @@ import android.hardware.SensorManager;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -89,7 +88,7 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
 
     // saves all the data collected
     public void saveData(View view) {
-        String filename = parse() + "txt";
+        String filename = parse() + ".txt";
         File file;
 
         FileOutputStream fileOutputStream;
@@ -103,7 +102,9 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
             fileOutputStream.write(title.getBytes());
             fileOutputStream.write(content.getBytes());
             fileOutputStream.close();
+
         }catch (IOException e) {
+            Log.e("TAG", Log.getStackTraceString(e));
             Toast.makeText(AllSensors.this,"An error occurred!",Toast.LENGTH_SHORT).show();
             return;
         }
@@ -153,7 +154,7 @@ public class AllSensors extends ActionBarActivity implements SensorEventListener
                 mz = event.values[2];
             }
 
-        content += (currentTime - startTime) + ax + " " + ay + " " + az + " " + mx + " " + my + " " + mz + " " + gx + " " + gy + " " + gz + "/n";
+            content += (currentTime - startTime) + ax + " " + ay + " " + az + " " + mx + " " + my + " " + mz + " " + gx + " " + gy + " " + gz + "/n";
         }
 
     }
